@@ -7,32 +7,34 @@ import 'fractals/squares.dart';
 import 'fractals/pentagons.dart';
 
 class GamePlay extends StatelessWidget {
-  late Fractals game;
   final Type type;
-  GamePlay(
+  const GamePlay(
     this.type, {
     Key? key,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  Fractals whichFractal(BuildContext context) {
     switch (type) {
       case Type.triangle:
-        game = TriangleFractal(context, 0);
-        break;
+        return TriangleFractal(context, 0);
+
       case Type.square0:
-        game = SquareFractal(context, 0);
-        break;
+        return SquareFractal(context, 0);
+
       case Type.square1:
-        game = SquareFractal(context, 1);
-        break;
+        return SquareFractal(context, 1);
+
       case Type.square2:
-        game = SquareFractal(context, 2);
-        break;
+        return SquareFractal(context, 2);
+
       case Type.pentagon:
-        game = PentagonFractal(context, 0);
-        break;
+        return PentagonFractal(context, 0);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Fractals game = whichFractal(context);
 
     return MaterialApp(
       home: Scaffold(
