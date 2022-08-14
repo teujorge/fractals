@@ -19,7 +19,7 @@ class GameSelection extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => GamePlay(Type.triangle),
+                      builder: (context) => const PlayView(Type.triangle),
                     ),
                   );
                 },
@@ -32,7 +32,7 @@ class GameSelection extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => GamePlay(Type.square0),
+                      builder: (context) => const PlayView(Type.square0),
                     ),
                   );
                 },
@@ -45,7 +45,7 @@ class GameSelection extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => GamePlay(Type.square1),
+                      builder: (context) => const PlayView(Type.square1),
                     ),
                   );
                 },
@@ -58,7 +58,7 @@ class GameSelection extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => GamePlay(Type.square2),
+                      builder: (context) => const PlayView(Type.square2),
                     ),
                   );
                 },
@@ -71,7 +71,7 @@ class GameSelection extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => GamePlay(Type.pentagon),
+                      builder: (context) => const PlayView(Type.pentagon),
                     ),
                   );
                 },

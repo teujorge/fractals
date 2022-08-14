@@ -1,40 +1,40 @@
 import 'package:flame/extensions.dart';
 
 import 'fractals.dart';
-import '../components/dot.dart';
 
-class PentagonFractal extends Fractals {
-  PentagonFractal(super.context, super.mode) {
-    // init vertex dots
-    pointA = Dot(Vector2(screenSize.width * 0.25, screenSize.height * 0.1));
-    pointB = Dot(Vector2(screenSize.width * 0.75, screenSize.height * 0.1));
-    pointC = Dot(Vector2(screenSize.width * 0.9, screenSize.height * 0.5));
-    pointD = Dot(Vector2(screenSize.width * 0.5, screenSize.height * 0.9));
-    pointE = Dot(Vector2(screenSize.width * 0.1, screenSize.height * 0.5));
-  }
+class PentagonFractalPainter extends FractalPainter {
+  PentagonFractalPainter(super.mode);
 
   @override
   void makeDots() {
     // ensure new vertex is != to old vertex
-    Dot newVertex = vertexChooser(5);
+    newVertex = vertexChooser(5);
     while (newVertex == lastVertex) {
       newVertex = vertexChooser(5);
     }
     lastLastVertex = lastVertex;
     lastVertex = newVertex;
 
-    pointX = SmallDot(pointX, newVertex);
-    add(pointX);
+    super.makeDots();
   }
 
   @override
-  void update(double dt) {
-    super.update(dt);
+  void paint(Canvas canvas, Size size) {
+    // init vertex dots
+    if (vertices.isEmpty) {
+      vertices.add(Offset(screenSize.width * 0.25, screenSize.height * 0.1));
+      vertices.add(Offset(screenSize.width * 0.75, screenSize.height * 0.1));
+      vertices.add(Offset(screenSize.width * 0.9, screenSize.height * 0.5));
+      vertices.add(Offset(screenSize.width * 0.5, screenSize.height * 0.9));
+      vertices.add(Offset(screenSize.width * 0.1, screenSize.height * 0.5));
+    } else {
+      vertices[0] = (Offset(screenSize.width * 0.25, screenSize.height * 0.1));
+      vertices[1] = (Offset(screenSize.width * 0.75, screenSize.height * 0.1));
+      vertices[2] = (Offset(screenSize.width * 0.9, screenSize.height * 0.5));
+      vertices[3] = (Offset(screenSize.width * 0.5, screenSize.height * 0.9));
+      vertices[4] = (Offset(screenSize.width * 0.1, screenSize.height * 0.5));
+    }
 
-    pointA.position = Vector2(screenSize.width * 0.25, screenSize.height * 0.1);
-    pointB.position = Vector2(screenSize.width * 0.75, screenSize.height * 0.1);
-    pointC.position = Vector2(screenSize.width * 0.9, screenSize.height * 0.5);
-    pointD.position = Vector2(screenSize.width * 0.5, screenSize.height * 0.9);
-    pointE.position = Vector2(screenSize.width * 0.1, screenSize.height * 0.5);
+    super.paint(canvas, size);
   }
 }

@@ -1,20 +1,13 @@
 import 'package:flame/extensions.dart';
 
 import 'fractals.dart';
-import '../components/dot.dart';
 
-class SquareFractal extends Fractals {
-  SquareFractal(super.context, super.mode) {
-    // init vertex dots
-    pointA = Dot(Vector2(screenSize.width * 0.1, screenSize.height * 0.1));
-    pointB = Dot(Vector2(screenSize.width * 0.9, screenSize.height * 0.1));
-    pointC = Dot(Vector2(screenSize.width * 0.9, screenSize.height * 0.9));
-    pointD = Dot(Vector2(screenSize.width * 0.1, screenSize.height * 0.9));
-  }
+class SquareFractalPainter extends FractalPainter {
+  SquareFractalPainter(super.mode);
 
   @override
   void makeDots() {
-    Dot newVertex = vertexChooser(4);
+    newVertex = vertexChooser(4);
 
     // ensure new vertex is != to old vertex
     if (mode == 0) {
@@ -36,8 +29,8 @@ class SquareFractal extends Fractals {
     else if (mode == 2) {
       if (lastVertex != null) {
         if (lastLastVertex == lastVertex) {
-          while (newVertex.position.x == lastVertex!.position.x ||
-              newVertex.position.y == lastVertex!.position.y) {
+          while (newVertex!.dx == lastVertex!.dx ||
+              newVertex!.dy == lastVertex!.dy) {
             newVertex = vertexChooser(4);
           }
         }
@@ -46,17 +39,24 @@ class SquareFractal extends Fractals {
 
     lastLastVertex = lastVertex;
     lastVertex = newVertex;
-
-    pointX = SmallDot(pointX, newVertex);
-    add(pointX);
+    super.makeDots();
   }
 
   @override
-  void update(double dt) {
-    super.update(dt);
-    pointA.position = Vector2(screenSize.width * 0.1, screenSize.height * 0.1);
-    pointB.position = Vector2(screenSize.width * 0.9, screenSize.height * 0.1);
-    pointC.position = Vector2(screenSize.width * 0.9, screenSize.height * 0.9);
-    pointD.position = Vector2(screenSize.width * 0.1, screenSize.height * 0.9);
+  void paint(Canvas canvas, Size size) {
+    // init vertex dots
+    if (vertices.isEmpty) {
+      vertices.add(Offset(screenSize.width * 0.1, screenSize.height * 0.1));
+      vertices.add(Offset(screenSize.width * 0.9, screenSize.height * 0.1));
+      vertices.add(Offset(screenSize.width * 0.9, screenSize.height * 0.9));
+      vertices.add(Offset(screenSize.width * 0.1, screenSize.height * 0.9));
+    } else {
+      vertices[0] = (Offset(screenSize.width * 0.1, screenSize.height * 0.1));
+      vertices[1] = (Offset(screenSize.width * 0.9, screenSize.height * 0.1));
+      vertices[2] = (Offset(screenSize.width * 0.9, screenSize.height * 0.9));
+      vertices[3] = (Offset(screenSize.width * 0.1, screenSize.height * 0.9));
+    }
+
+    super.paint(canvas, size);
   }
 }

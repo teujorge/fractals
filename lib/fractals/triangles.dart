@@ -1,27 +1,28 @@
 import 'package:flame/extensions.dart';
 
 import 'fractals.dart';
-import '../components/dot.dart';
 
-class TriangleFractal extends Fractals {
-  TriangleFractal(super.context, super.mode) {
-    // init vertex dots
-    pointA = Dot(Vector2(screenSize.width * 0.1, screenSize.height * 0.9));
-    pointB = Dot(Vector2(screenSize.width * 0.5, screenSize.height * 0.1));
-    pointC = Dot(Vector2(screenSize.width * 0.9, screenSize.height * 0.9));
-  }
+class TriangleFractalPainter extends FractalPainter {
+  TriangleFractalPainter(super.mode);
 
   @override
   void makeDots() {
-    pointX = SmallDot(pointX, vertexChooser(3));
-    add(pointX);
+    newVertex = vertexChooser(3);
+    super.makeDots();
   }
 
   @override
-  void update(double dt) {
-    super.update(dt);
-    pointA.position = Vector2(screenSize.width * 0.1, screenSize.height * 0.9);
-    pointB.position = Vector2(screenSize.width * 0.5, screenSize.height * 0.1);
-    pointC.position = Vector2(screenSize.width * 0.9, screenSize.height * 0.9);
+  void paint(Canvas canvas, Size size) {
+    // init vertices
+    if (vertices.isEmpty) {
+      vertices.add(Offset(screenSize.width * 0.1, screenSize.height * 0.9));
+      vertices.add(Offset(screenSize.width * 0.5, screenSize.height * 0.1));
+      vertices.add(Offset(screenSize.width * 0.9, screenSize.height * 0.9));
+    } else {
+      vertices[0] = (Offset(screenSize.width * 0.1, screenSize.height * 0.9));
+      vertices[1] = (Offset(screenSize.width * 0.5, screenSize.height * 0.1));
+      vertices[2] = (Offset(screenSize.width * 0.9, screenSize.height * 0.9));
+    }
+    super.paint(canvas, size);
   }
 }
