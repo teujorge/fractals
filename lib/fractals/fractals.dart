@@ -4,6 +4,7 @@ import 'dart:math';
 
 enum Type {
   triangle,
+  fern,
   square0,
   square1,
   square2,
@@ -25,10 +26,6 @@ class FractalPainter extends CustomPainter {
   Offset? newVertex;
   Offset? lastVertex;
   Offset? lastLastVertex;
-
-  // animation speed
-  int dotSpeed = 1;
-  ValueNotifier<int> numDots = ValueNotifier<int>(0);
 
   // fractal mode
   int mode;
@@ -74,13 +71,22 @@ class FractalPainter extends CustomPainter {
   }
 
   void makeDots() {
+    // mid point
     Offset mid = midPoint(
-      Offset(points[points.length - 1].dx * screenSize.width,
-          points[points.length - 1].dy * screenSize.height),
+      Offset(
+        points[points.length - 1].dx * screenSize.width,
+        points[points.length - 1].dy * screenSize.height,
+      ),
       newVertex!,
     );
-    points.add(Offset(mid.dx / screenSize.width, mid.dy / screenSize.height));
-    numDots.value++;
+
+    // add location as percentage
+    points.add(
+      Offset(
+        mid.dx / screenSize.width,
+        mid.dy / screenSize.height,
+      ),
+    );
   }
 
   @override
@@ -97,7 +103,11 @@ class FractalPainter extends CustomPainter {
     // draw all points
     for (Offset point in points) {
       canvas.drawCircle(
-        Offset(point.dx * screenSize.width, point.dy * screenSize.height),
+        // from percentage draw on location
+        Offset(
+          point.dx * screenSize.width,
+          point.dy * screenSize.height,
+        ),
         0.5,
         Paint()..color = Colors.amber,
       );

@@ -32,6 +32,19 @@ class GameSelection extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
+                      builder: (context) => const PlayView(Type.fern),
+                    ),
+                  );
+                },
+                child: const Text("fern"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
                       builder: (context) => const PlayView(Type.square0),
                     ),
                   );

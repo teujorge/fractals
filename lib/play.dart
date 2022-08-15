@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'fractals/fractals.dart';
 import 'fractals/triangles.dart';
+import 'fractals/fern.dart';
 import 'fractals/squares.dart';
 import 'fractals/pentagons.dart';
 
@@ -52,6 +53,9 @@ class PlayViewState extends State<PlayView> {
       case Type.triangle:
         return TriangleFractalPainter(0);
 
+      case Type.fern:
+        return FernFractalPainter(0);
+
       case Type.square0:
         return SquareFractalPainter(0);
 
@@ -88,7 +92,6 @@ class PlayViewState extends State<PlayView> {
               height: constraints.maxHeight,
               child: Stack(
                 children: [
-                  // GameWidget(game: game),
                   CustomPaint(
                     painter: painter
                       ..screenSize = Size(
