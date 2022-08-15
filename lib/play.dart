@@ -5,6 +5,7 @@ import 'dart:async';
 import 'fractals/fractals.dart';
 import 'fractals/triangles.dart';
 import 'fractals/fern.dart';
+import 'fractals/julia.dart';
 import 'fractals/squares.dart';
 import 'fractals/pentagons.dart';
 
@@ -55,6 +56,9 @@ class PlayViewState extends State<PlayView> {
 
       case Type.fern:
         return FernFractalPainter(0);
+
+      case Type.julia:
+        return JuliaFractalPainter(0);
 
       case Type.square0:
         return SquareFractalPainter(0);
