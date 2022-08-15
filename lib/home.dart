@@ -12,87 +12,37 @@ class GameSelection extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PlayView(Type.triangle),
-                    ),
-                  );
-                },
-                child: const Text("triangle"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PlayView(Type.fern),
-                    ),
-                  );
-                },
-                child: const Text("fern"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PlayView(Type.square0),
-                    ),
-                  );
-                },
-                child: const Text("square0"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PlayView(Type.square1),
-                    ),
-                  );
-                },
-                child: const Text("square1"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PlayView(Type.square2),
-                    ),
-                  );
-                },
-                child: const Text("square2"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PlayView(Type.pentagon),
-                    ),
-                  );
-                },
-                child: const Text("pentagon"),
-              ),
-            ),
+          children: const [
+            FractalChooser(Type.triangle),
+            FractalChooser(Type.julia),
+            FractalChooser(Type.square0),
+            FractalChooser(Type.square1),
+            FractalChooser(Type.square2),
+            FractalChooser(Type.pentagon),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FractalChooser extends StatelessWidget {
+  final Type type;
+  const FractalChooser(this.type, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => PlayView(type),
+            ),
+          );
+        },
+        child: Text(type.toString().split('.').last),
       ),
     );
   }
