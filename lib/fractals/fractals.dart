@@ -5,6 +5,7 @@ import 'dart:math';
 enum Type {
   triangle,
   fern,
+  julia,
   square0,
   square1,
   square2,
@@ -32,6 +33,9 @@ class FractalPainter extends CustomPainter {
 
   List<Offset> vertices = [];
   List<Offset> points = [];
+
+  Paint vertexPaint = Paint()..color = Colors.red;
+  Paint pointPaint = Paint()..color = Colors.amber;
 
   FractalPainter(this.mode) {
     // create initial random point
@@ -96,9 +100,14 @@ class FractalPainter extends CustomPainter {
       canvas.drawCircle(
         point,
         5,
-        Paint()..color = Colors.red,
+        vertexPaint,
       );
     }
+
+    double smallestDim = (screenSize.width < screenSize.height)
+        ? screenSize.width
+        : screenSize.height;
+    smallestDim /= 800;
 
     // draw all points
     for (Offset point in points) {
@@ -108,8 +117,8 @@ class FractalPainter extends CustomPainter {
           point.dx * screenSize.width,
           point.dy * screenSize.height,
         ),
-        0.5,
-        Paint()..color = Colors.amber,
+        smallestDim,
+        pointPaint,
       );
     }
   }
