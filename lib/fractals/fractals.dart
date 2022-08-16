@@ -34,8 +34,8 @@ class FractalPainter extends CustomPainter {
   List<Offset> vertices = [];
   List<Offset> points = [];
 
-  Paint vertexPaint = Paint()..color = Colors.red;
-  Paint pointPaint = Paint()..color = Colors.amber;
+  Paint vertexPaint = Paint()..color = Colors.purple;
+  Paint pointPaint = Paint()..color = Colors.lightBlueAccent;
 
   FractalPainter({this.mode = 0}) {
     // create initial random point
@@ -49,8 +49,8 @@ class FractalPainter extends CustomPainter {
 
   Offset midPoint(Offset p1, Offset p2) {
     return Offset(
-      numerator * (p1.dx + p2.dx) / denominator,
-      numerator * (p1.dy + p2.dy) / denominator,
+      p1.dx + (numerator * (p2.dx - p1.dx) / denominator),
+      p1.dy + (numerator * (p2.dy - p1.dy) / denominator),
     );
   }
 
@@ -189,14 +189,13 @@ class FractalPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // draw vertices
-    for (Offset point in vertices) {
-      canvas.drawCircle(
-        point,
-        5,
-        vertexPaint,
-      );
+    // draw vertices and faces
+    for (int i = 0; i < vertices.length - 1; i++) {
+      canvas.drawCircle(vertices[i], 5, vertexPaint);
+      canvas.drawLine(vertices[i], vertices[i + 1], vertexPaint);
     }
+    canvas.drawCircle(vertices[vertices.length - 1], 5, vertexPaint);
+    canvas.drawLine(vertices[0], vertices[vertices.length - 1], vertexPaint);
 
     double smallestDim = (screenSize.width < screenSize.height)
         ? screenSize.width
