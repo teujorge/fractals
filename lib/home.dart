@@ -9,17 +9,22 @@ class GameSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            FractalChooser(Type.triangle),
-            FractalChooser(Type.julia),
-            FractalChooser(Type.square0),
-            FractalChooser(Type.square1),
-            FractalChooser(Type.square2),
-            FractalChooser(Type.pentagon),
-          ],
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              FractalChooser(Type.na),
+              FractalChooser(Type.fern),
+              FractalChooser(Type.julia),
+              FractalChooser(Type.triangle),
+              FractalChooser(Type.square0),
+              FractalChooser(Type.square1),
+              FractalChooser(Type.square2),
+              FractalChooser(Type.pentagon),
+            ],
+          ),
         ),
       ),
     );
