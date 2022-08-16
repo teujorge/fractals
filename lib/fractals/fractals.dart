@@ -10,13 +10,7 @@ enum Type {
   square1,
   square2,
   pentagon,
-}
-
-Offset midPoint(Offset p1, Offset p2) {
-  return Offset(
-    (p1.dx + p2.dx) / 2,
-    (p1.dy + p2.dy) / 2,
-  );
+  na,
 }
 
 class FractalPainter extends CustomPainter {
@@ -24,6 +18,7 @@ class FractalPainter extends CustomPainter {
   Size screenSize = const Size(0, 0);
 
   // for non repetition
+  int numVertices = 0;
   Offset? newVertex;
   Offset? lastVertex;
   Offset? lastLastVertex;
@@ -31,19 +26,31 @@ class FractalPainter extends CustomPainter {
   // fractal mode
   int mode;
 
+  // change midpoint fraction
+  int numerator = 1;
+  int denominator = 2;
+
+  List<Offset> verticesP = [];
   List<Offset> vertices = [];
   List<Offset> points = [];
 
   Paint vertexPaint = Paint()..color = Colors.red;
   Paint pointPaint = Paint()..color = Colors.amber;
 
-  FractalPainter(this.mode) {
+  FractalPainter({this.mode = 0}) {
     // create initial random point
     points.add(
       Offset(
         600 * Random().nextDouble(),
         400 * Random().nextDouble(),
       ),
+    );
+  }
+
+  Offset midPoint(Offset p1, Offset p2) {
+    return Offset(
+      numerator * (p1.dx + p2.dx) / denominator,
+      numerator * (p1.dy + p2.dy) / denominator,
     );
   }
 
@@ -91,6 +98,93 @@ class FractalPainter extends CustomPainter {
         mid.dy / screenSize.height,
       ),
     );
+  }
+
+  void paintVerticesTriangle() {
+    if (vertices.isEmpty) {
+      verticesP = [
+        const Offset(0.1, 0.9),
+        const Offset(0.5, 0.1),
+        const Offset(0.9, 0.9),
+      ];
+    }
+    vertices = [
+      Offset(
+        screenSize.width * verticesP[0].dx,
+        screenSize.height * verticesP[0].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[1].dx,
+        screenSize.height * verticesP[1].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[2].dx,
+        screenSize.height * verticesP[2].dy,
+      ),
+    ];
+  }
+
+  void paintVerticesSquare() {
+    if (vertices.isEmpty) {
+      verticesP = [
+        const Offset(0.1, 0.1),
+        const Offset(0.9, 0.1),
+        const Offset(0.9, 0.9),
+        const Offset(0.1, 0.9),
+      ];
+    }
+    vertices = [
+      Offset(
+        screenSize.width * verticesP[0].dx,
+        screenSize.height * verticesP[0].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[1].dx,
+        screenSize.height * verticesP[1].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[2].dx,
+        screenSize.height * verticesP[2].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[3].dx,
+        screenSize.height * verticesP[3].dy,
+      ),
+    ];
+  }
+
+  void paintVerticesPentagon() {
+    if (vertices.isEmpty) {
+      verticesP = [
+        const Offset(0.25, 0.1),
+        const Offset(0.75, 0.1),
+        const Offset(0.9, 0.5),
+        const Offset(0.5, 0.9),
+        const Offset(0.1, 0.5),
+      ];
+    }
+    vertices = [
+      Offset(
+        screenSize.width * verticesP[0].dx,
+        screenSize.height * verticesP[0].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[1].dx,
+        screenSize.height * verticesP[1].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[2].dx,
+        screenSize.height * verticesP[2].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[3].dx,
+        screenSize.height * verticesP[3].dy,
+      ),
+      Offset(
+        screenSize.width * verticesP[4].dx,
+        screenSize.height * verticesP[4].dy,
+      ),
+    ];
   }
 
   @override
