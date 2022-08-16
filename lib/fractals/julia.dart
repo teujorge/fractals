@@ -1,7 +1,5 @@
-import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'fractals.dart';
@@ -24,7 +22,7 @@ class JuliaFractalPainter extends FractalPainter {
   // color list
   List<Color> pointsColors = [Colors.amber];
 
-  JuliaFractalPainter(super.mode) {
+  JuliaFractalPainter({super.mode}) {
     points[0] = const Offset(0, 0);
   }
 

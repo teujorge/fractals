@@ -3,7 +3,7 @@ import 'package:flame/extensions.dart';
 import 'fractals.dart';
 
 class SquareFractalPainter extends FractalPainter {
-  SquareFractalPainter(super.mode);
+  SquareFractalPainter({super.mode});
 
   @override
   void makeDots() {
@@ -44,19 +44,7 @@ class SquareFractalPainter extends FractalPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // init vertex dots
-    if (vertices.isEmpty) {
-      vertices.add(Offset(screenSize.width * 0.1, screenSize.height * 0.1));
-      vertices.add(Offset(screenSize.width * 0.9, screenSize.height * 0.1));
-      vertices.add(Offset(screenSize.width * 0.9, screenSize.height * 0.9));
-      vertices.add(Offset(screenSize.width * 0.1, screenSize.height * 0.9));
-    } else {
-      vertices[0] = (Offset(screenSize.width * 0.1, screenSize.height * 0.1));
-      vertices[1] = (Offset(screenSize.width * 0.9, screenSize.height * 0.1));
-      vertices[2] = (Offset(screenSize.width * 0.9, screenSize.height * 0.9));
-      vertices[3] = (Offset(screenSize.width * 0.1, screenSize.height * 0.9));
-    }
-
+    paintVerticesSquare();
     super.paint(canvas, size);
   }
 }

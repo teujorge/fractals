@@ -8,7 +8,7 @@ class FernFractalPainter extends FractalPainter {
   double x = 0;
   double y = 0;
 
-  FernFractalPainter(super.mode) {
+  FernFractalPainter({super.mode}) {
     points[0] = const Offset(0, 0);
   }
 
